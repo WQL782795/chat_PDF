@@ -1,8 +1,8 @@
 import gradio as gr
 
 from chatgpt import *
-from db_demo import *
 from db import *
+from text_pre_handle import *
 
 
 def query(query):
