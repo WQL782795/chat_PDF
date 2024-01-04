@@ -4,10 +4,9 @@ from chatgpt import *
 from db import *
 from text_pre_handle import *
 
-
+context = []
 def query(query_text, history):
     rag_data = ''
-    context = []
     result_data = db_search(query_text)
     for data in result_data:
         for i, r in enumerate(data):
@@ -15,7 +14,7 @@ def query(query_text, history):
     response = send_llm(build_messages(query_text, rag_data, context))
     context.append({'role': 'user', 'content': query_text})
     context.append({'role': 'assistant', 'content': response})
-    return response
+    return response.choices[0].message.content
 
 
 gr.ChatInterface(query,

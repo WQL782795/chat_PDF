@@ -21,7 +21,7 @@ __QUERY__
 """
 
 
-def send_llm(messages, model="gpt-3.5-turbo"):
+def send_llm(messages, model="gpt-4"):
     return client.chat.completions.create(
         model=model,
         messages=messages,
