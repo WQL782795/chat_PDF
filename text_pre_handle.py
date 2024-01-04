@@ -46,7 +46,7 @@ if __name__ == '__main__':
     #     raise "retry error"
     #
     # print(raws)
-    # db_demo.db_insert(raws)
+    # db.db_insert(raws)
 
     result = db.db_search("徐凤年是谁")
     for re in result:

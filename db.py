@@ -1,20 +1,23 @@
+import os
+
 from pymilvus import DataType, connections, utility, FieldSchema, CollectionSchema, Collection
 
 import BGE
+from dotenv import load_dotenv,find_dotenv
 
-conn = connections.connect("default", uri="https://in03-c9dcdc65d293a68.api.gcp-us-west1.zillizcloud.com",
-                           user="kylinw782795@gmail.com", password="Wql@782795",
-                           token="7e069fbae019f043cf453b5c41c370677d6f43eacb177c6f4b2cd169addf30378cf42e4fd802f1ebe00c1e464c75bb39fd114d79")
+load_dotenv(find_dotenv())
 
-# 创建集合
+conn = connections.connect("default", uri=os.getenv("MILVUS_URI"),
+                           user=os.getenv("MILVUS_USER"), password=os.getenv("MILVUS_PASSWORD"),
+                           token=os.getenv("MILVUS_TOKEN"))
+
 COLLECTION_NAME = 'kylin_vector'
 fields = [FieldSchema(name="id", dtype=DataType.INT64, is_primary=True),
           FieldSchema(name="text_embedding", dtype=DataType.FLOAT_VECTOR, dim=1024)]
 
 schema = CollectionSchema(fields, description="Schema of Medium articles", enable_dynamic_field=True)
-# if not utility.has_collection(COLLECTION_NAME):
 collection = Collection(name=COLLECTION_NAME,
-                        description="Medium articles published between Jan and August in 2020 in prominent publications",
+                        description="test",
                         schema=schema)
 index_params = {"index_type": "AUTOINDEX", "metric_type": "L2", "params": {}}
 
